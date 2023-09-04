@@ -4,13 +4,13 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.dfa.FoundWord;
 import cn.hutool.dfa.WordTree;
 import com.shilinx.xsojcodesandbox.model.ExecuteCodeRequest;
 import com.shilinx.xsojcodesandbox.model.ExecuteCodeResponse;
 import com.shilinx.xsojcodesandbox.model.ExecuteMessage;
 import com.shilinx.xsojcodesandbox.model.JudgeInfo;
 import com.shilinx.xsojcodesandbox.utils.ProcessUtil;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -22,7 +22,8 @@ import java.util.List;
  * java 原生代码沙箱实现
  * @author slx
  */
-public class JavaNativeCodeSendBox implements CodeSendBox {
+@Service
+public class JavaNativeCodeSendBoxOld implements CodeSendBox {
 
     public static final String GLOBAL_CODE_DIR_NAME = "tempCode";
 
@@ -55,12 +56,12 @@ public class JavaNativeCodeSendBox implements CodeSendBox {
         ExecuteCodeRequest executeCodeRequest = new ExecuteCodeRequest();
         executeCodeRequest.setInputList(Arrays.asList("1 2", "1 3"));
         //使用resource目录下的测试文件作为用户源码
-//        String code = ResourceUtil.readStr("testCode/simpleComputeArgs/Main.java", StandardCharsets.UTF_8);
-        String code = ResourceUtil.readStr("testCode/attackexample/WoodenHorseAttack.java", StandardCharsets.UTF_8);
+        String code = ResourceUtil.readStr("testCode/simpleComputeArgs/Main.java", StandardCharsets.UTF_8);
+//        String code = ResourceUtil.readStr("testCode/attackexample/WoodenHorseAttack.java", StandardCharsets.UTF_8);
         executeCodeRequest.setCode(code);
         executeCodeRequest.setLanguage("java");
         //传入参数，创建用户源码文件
-        JavaNativeCodeSendBox javaNativeCodeSendBox = new JavaNativeCodeSendBox();
+        JavaNativeCodeSendBoxOld javaNativeCodeSendBox = new JavaNativeCodeSendBoxOld();
         ExecuteCodeResponse executeCodeResponse = javaNativeCodeSendBox.executeCode(executeCodeRequest);
         System.out.println(executeCodeResponse);
     }

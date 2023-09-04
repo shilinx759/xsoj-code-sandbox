@@ -30,4 +30,9 @@ public class ExecuteMessage {
      * 执行时间
      */
     private Long time;
+
+    /**
+     * 占用内存
+     */
+    private Long memory;
 }
